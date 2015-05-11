@@ -28,7 +28,6 @@ map '/' do
 
     run environment
   end
-#  use RedirectOldVersions
   use ServeModelData
   run ServeHTML
 end

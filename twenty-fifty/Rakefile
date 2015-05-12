@@ -2,6 +2,7 @@
 # coding: utf-8
 require 'sprockets'
 require 'rake/sprocketstask'
+require './model/load_model'
 require './src/helper'
 
 # This deals with the javascript and css
@@ -24,7 +25,6 @@ end
 
 require 'haml'
 require 'json'
-require 'india_2052_model'
 require_relative 'src/helper'
 
 manifest = './public/assets/manifest.json'

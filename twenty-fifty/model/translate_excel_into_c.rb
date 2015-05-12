@@ -15,20 +15,18 @@ def setup(command)
 
   command.cells_to_keep = {
     # The names, limits, 10 worders, long descriptions
-    "Control" => (5.upto(53).to_a.map { |r| ["d#{r}","f#{r}","h#{r}","i#{r}","j#{r}","k#{r}","bo#{r}","bp#{r}","bq#{r}","br#{r}"] }).flatten,
+    "Control" => (5.upto(63).to_a.map { |r| ["d#{r}","f#{r}","h#{r}","i#{r}","j#{r}","k#{r}","bo#{r}","bp#{r}","bq#{r}","br#{r}"] }).flatten,
     "Intermediate output" => :all, 
-    #"CostPerCapita" => :all,
+    "CostAbsolute" => :all,
     "Land Use" => :all, 
-    "Flows" => :all,
-   # "AQ Outputs" => :all,
-    "Charts" => :all,
+    "flows" => :all,
   }
   
   # Add the version number
   command.cells_to_keep["Control"] << "m1"
   
   # Add the example pathways
-  rows = (4..53).to_a
+  rows = (4..63).to_a
   ('m'..'z').to_a.push('aa','ab').each do |column|
     rows.each do |row|
       command.cells_to_keep["Control"].push("#{column}#{row}")

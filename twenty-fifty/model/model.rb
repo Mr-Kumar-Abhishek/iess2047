@@ -21691,16 +21691,6 @@ class Model
     attach_function 'set_control_e51', [ExcelValue.by_value], :void
     attach_function 'set_control_e52', [ExcelValue.by_value], :void
     attach_function 'set_control_e53', [ExcelValue.by_value], :void
-    attach_function 'set_control_e54', [ExcelValue.by_value], :void
-    attach_function 'set_control_e55', [ExcelValue.by_value], :void
-    attach_function 'set_control_e56', [ExcelValue.by_value], :void
-    attach_function 'set_control_e57', [ExcelValue.by_value], :void
-    attach_function 'set_control_e58', [ExcelValue.by_value], :void
-    attach_function 'set_control_e59', [ExcelValue.by_value], :void
-    attach_function 'set_control_e60', [ExcelValue.by_value], :void
-    attach_function 'set_control_e61', [ExcelValue.by_value], :void
-    attach_function 'set_control_e62', [ExcelValue.by_value], :void
-    attach_function 'set_control_e63', [ExcelValue.by_value], :void
     attach_function 'control_d5', [], ExcelValue.by_value
     attach_function 'control_f5', [], ExcelValue.by_value
     attach_function 'control_h5', [], ExcelValue.by_value

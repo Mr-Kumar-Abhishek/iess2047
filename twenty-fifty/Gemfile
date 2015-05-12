@@ -13,6 +13,7 @@ gem 'thin'
 
 # Model
 gem 'ffi'
+gem 'excel_to_code', '>= 0.3.16'
 # Model is now contained inside this source
 # gem 'decc_2050_model', "3.5.0"
 # gem 'india_2052_model',  :git => '../india_2052_model', :branch => 'master'

@@ -1,7 +1,7 @@
 # coding: utf-8
 # Test for model
 require 'minitest/autorun'
-require_relative 'load_model'
+require_relative 'model'
 
 class TestModel < Minitest::Unit::TestCase
   def self.runnable_methods

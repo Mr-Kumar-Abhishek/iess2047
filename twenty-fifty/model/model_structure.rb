@@ -7,7 +7,7 @@ class ModelStructure < ModelUtilities
   attr_accessor :excel, :choices
     
   def initialize
-    @excel = ModelShim.new
+    @excel = Model.new
     @choices = []
     types.each_with_index do |choice_type, i|
       case choice_type

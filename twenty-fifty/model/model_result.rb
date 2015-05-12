@@ -4,7 +4,7 @@ class ModelResult < ModelUtilities
   attr_accessor :excel, :pathway
   
   def initialize
-    @excel = ModelShim.new
+    @excel = Model.new
   end
   
   def self.calculate_pathway(code)
@@ -24,7 +24,9 @@ class ModelResult < ModelUtilities
       #energy_imports #DONE
       #energy_diversity Non priority
       #air_quality #YES        6
-      dependency
+
+      #******   ADDING FUNCTION WARNING HERE ****
+      dependencies
       emissions_do_nothing
       land_do_nothing
       energy_share
@@ -46,7 +48,7 @@ class ModelResult < ModelUtilities
     j = 2012
     ('f'..'m').each do |num| 
     s[j] = []
-      (6..71).each do |row|
+      (6..85).each do |row|
         s[j] << [r("flows_c#{row}"),r("flows_#{num}#{row}"),r("flows_d#{row}")] #changed n to m (2052 to 2047)
       end
     j += 5
@@ -56,12 +58,19 @@ class ModelResult < ModelUtilities
   
   def primary_energy_tables
     #pathway[:ghg] = table 198, 210 #194, 206 #182, 192
-    pathway[:final_energy_demand] = table 7, 21 #7, 18 #13, 18   Includes total
+    pathway[:final_energy_demand] = table 7, 20 #7, 18 #13, 18   Includes total
+    
+    # MISSING ?
     pathway[:primary_energy_supply] = table 248, 258 #308, 321 #283, 296 India - > N.01 to Total Primary supply
+    
+    # MISSING ?
 	  pathway[:demand_do_nothing] = table 22, 22 # Demand do nothing scenario
+    
+    # MISSING ?
 	  pathway[:supply_do_nothing] = table 261, 261 # Supply do nothing scenario
-	  pathway[:conversion_losses] = table 55, 55
-	  pathway[:distribution_losses] = table 56,56 # Distribution losses and own use
+    
+	  pathway[:conversion_losses] = table 52, 52
+	  pathway[:distribution_losses] = table 53,53 # Distribution losses and own use
     #pathway[:emissions_absolute] = table 184, 192 #Emissions Absolute
     #pathway[:emissions_percapita] = table 313, 319
     #pathway[:import_costs] =  table 340, 342
@@ -106,12 +115,16 @@ class ModelResult < ModelUtilities
 
   def electricity_tables
     e = {}
+    # MISSING
     e[:demand] = table 287, 293 #347, 353 #322, 326     includes total
+    
+    # MISSING
     e[:supply] = table 360, 374 #107, 125 #96, 111
     #e[:emissions] = table 200, 210 #295, 298 #270, 273  -> Emissions reclassified
     #e[:capacity] = table 135, 150 #131, 146 #118, 132 -> GW installed capacity
-	  e[:re_share_percent] = table 130, 130 #-> Percentage Share of Renewables
-	  e[:electricity_exports] = table 131, 131 #-> electricity exports
+    
+	  e[:re_share_percent] = table 125, 125 #-> Percentage Share of Renewables
+	  e[:electricity_exports] = table 126, 126 #-> electricity exports
     #e['automatically_built'] = r("intermediate_output_bh120") Not used
     #e['peaking'] = r("intermediate_output_bh145") #Not used
     pathway['electricity'] = e
@@ -159,12 +172,27 @@ class ModelResult < ModelUtilities
     pathway['diversity'] = d
   end
 
-  def dependency
+  def dependencies
     dep = {}
     (65..72).each do |row|
       dep[label("intermediate_output", row)] = annual_data("intermediate_output", row)
     end
-    pathway['dependency'] = dep
+    pathway['dependencies'] = dep
+  end
+# ADDING FUNCTION WARNING HERE
+  def warning
+    warn = {}
+    warn['50_percent_chance_warming'] = 'WARNING: Cumulative CO2 emissions by 2100 exceed 3010 GtCO2, the amount associated with a 50% chance of keeping global mean temperature increase below 2C by 2100. Reduce emissions by increasing effort across more levers.'
+    warn['bio_oversupply'] = 'No warning on bio crop oversupply'
+    warn['electricity_oversupply'] = 'electricity_oversupply'
+    warn['coal_reserves'] = 'No warning on coal consumption'
+    warn['forest'] = 'No warning on forest area change'
+    warn['fossil_fuel_proportion'] = 'WARNING - your pathway increases the dependence on fossil fuels from 2011 to 2050. A greater dependence of on fossil fuels in the global primary energy supply mix could mean greater import dependence for some countries and greater exposure to possibly volatile fossil fuel prices. Click on energy tab to view fossil fuel dependence.'
+    warn['gas_reserves'] = 'No warning on gas consumption'
+    warn['land_use'] = 'No warning on land use'
+    warn['oil_reserves'] = 'No warning on oil consumption'
+
+    pathway['warning'] = warn
   end
 
   def energy_share
